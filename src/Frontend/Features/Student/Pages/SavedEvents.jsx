@@ -11,6 +11,17 @@ const SavedEvents = () => {
         setSavedEvents(saved)
     }, [])
 
+    const handleRemove = (e, id) => {
+        e.stopPropagation()
+
+        const updated = savedEvents.filter(
+            event => String(event.id) !== String(id)
+        )
+
+        localStorage.setItem("savedEvents", JSON.stringify(updated))
+        setSavedEvents(updated)
+    }
+
     return (
         <div>
 
@@ -27,8 +38,16 @@ const SavedEvents = () => {
                         <div
                             key={event.id}
                             onClick={() => navigate(`/student/event/${event.id}`)}
-                            className="bg-white/70 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden"
+                            className="bg-white/70 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden relative"
                         >
+
+                            {/* Remove Button */}
+                            <button
+                                onClick={(e) => handleRemove(e, event.id)}
+                                className="absolute top-3 right-3 text-lg bg-white rounded-full px-2 py-1 shadow hover:scale-110 transition"
+                            >
+                                ❌
+                            </button>
 
                             <div className="h-44 overflow-hidden">
                                 <img
@@ -46,6 +65,10 @@ const SavedEvents = () => {
                                 <p className="text-sm text-gray-600">
                                     📅 {new Date(event.date).toDateString()}
                                 </p>
+
+                                <p className="text-sm text-gray-600">
+                                    📍 {event.location}
+                                </p>
                             </div>
 
                         </div>
@@ -56,8 +79,21 @@ const SavedEvents = () => {
 
             ) : (
 
-                <div className="text-center mt-20 text-purple-600 font-medium">
-                    No saved events yet.
+                <div className="flex flex-col items-center justify-center mt-20">
+
+                    <div className="text-6xl mb-4">🤍</div>
+
+                    <p className="text-purple-600 font-medium text-lg">
+                        No saved events yet.
+                    </p>
+
+                    <button
+                        onClick={() => navigate("/student/dashboard")}
+                        className="mt-6 px-6 py-2 rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-500 hover:opacity-90 transition"
+                    >
+                        Browse Events
+                    </button>
+
                 </div>
 
             )}

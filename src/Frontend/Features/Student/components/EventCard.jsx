@@ -4,40 +4,51 @@ import { useState, useEffect } from "react"
 const EventCard = ({ event }) => {
 
     const navigate = useNavigate()
-
     const [isSaved, setIsSaved] = useState(false)
 
     useEffect(() => {
         const saved = JSON.parse(localStorage.getItem("savedEvents")) || []
-        const exists = saved.find(item => item.id === event.id)
-        if (exists) setIsSaved(true)
+
+        const exists = saved.some(
+            item => String(item.id) === String(event.id)
+        )
+
+        setIsSaved(exists)
     }, [event.id])
 
     const handleSave = (e) => {
         e.stopPropagation()
+        e.preventDefault()
 
         let saved = JSON.parse(localStorage.getItem("savedEvents")) || []
 
-        if (isSaved) {
-            saved = saved.filter(item => item.id !== event.id)
-            localStorage.setItem("savedEvents", JSON.stringify(saved))
+        const exists = saved.some(
+            item => String(item.id) === String(event.id)
+        )
+
+        if (exists) {
+            saved = saved.filter(
+                item => String(item.id) !== String(event.id)
+            )
             setIsSaved(false)
         } else {
             saved.push(event)
-            localStorage.setItem("savedEvents", JSON.stringify(saved))
             setIsSaved(true)
         }
+
+        localStorage.setItem("savedEvents", JSON.stringify(saved))
     }
 
     return (
         <div
-            onClick={() => navigate(`/student/event/${event.id}`)}
             className="bg-white/70 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden relative"
+            onClick={() => navigate(`/student/event/${event.id}`)}
         >
 
+            {/* Heart Button */}
             <button
                 onClick={handleSave}
-                className="absolute top-3 right-3 text-xl"
+                className="absolute top-3 right-3 text-xl z-20 bg-white rounded-full p-1 shadow-md"
             >
                 {isSaved ? "❤️" : "🤍"}
             </button>
@@ -65,6 +76,7 @@ const EventCard = ({ event }) => {
                 </p>
 
             </div>
+
         </div>
     )
 }

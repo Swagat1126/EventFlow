@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { User } from "lucide-react"
 
 const Profile = () => {
 
@@ -9,7 +10,8 @@ const Profile = () => {
         email: "",
         rollNumber: "",
         department: "",
-        year: ""
+        year: "",
+        image: null
     })
 
     useEffect(() => {
@@ -23,7 +25,8 @@ const Profile = () => {
                 email: "swagat@gmail.com",
                 rollNumber: "CS101",
                 department: "Computer Science",
-                year: "3rd Year"
+                year: "3rd Year",
+                image: null
             }
             localStorage.setItem("studentProfile", JSON.stringify(defaultProfile))
             setProfile(defaultProfile)
@@ -38,6 +41,20 @@ const Profile = () => {
         })
     }
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setProfile({
+                    ...profile,
+                    image: reader.result
+                })
+            }
+            reader.readAsDataURL(file)
+        }
+    }
+
     const handleSave = () => {
         localStorage.setItem("studentProfile", JSON.stringify(profile))
         setIsEditing(false)
@@ -49,6 +66,37 @@ const Profile = () => {
             <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                 Profile Information
             </h1>
+
+            {/* Profile Image Section */}
+            <div className="flex items-center gap-6 mb-8">
+
+                <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-purple-200 flex items-center justify-center bg-gray-100">
+
+                    {profile.image ? (
+                        <img
+                            src={profile.image}
+                            alt="profile"
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <User size={50} className="text-gray-400" />
+                    )}
+
+                </div>
+
+                {isEditing && (
+                    <label className="cursor-pointer bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-lg text-sm hover:opacity-90 transition">
+                        Upload Photo
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="hidden"
+                        />
+                    </label>
+                )}
+
+            </div>
 
             <div className="grid md:grid-cols-2 gap-6">
 

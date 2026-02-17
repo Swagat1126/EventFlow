@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const dummyEvents = [
     {
@@ -43,7 +43,35 @@ const EventDetails = () => {
         (item) => item.id === parseInt(id)
     );
 
+    useEffect(() => {
+        const storedEvents =
+            JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+        const alreadyRegistered = storedEvents.find(
+            (e) => e.id === parseInt(id)
+        );
+
+        if (alreadyRegistered) {
+            setIsRegistered(true);
+        }
+    }, [id]);
+
     const handleRegister = () => {
+        const storedEvents =
+            JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+        const alreadyRegistered = storedEvents.find(
+            (e) => e.id === event.id
+        );
+
+        if (!alreadyRegistered) {
+            const updatedEvents = [...storedEvents, event];
+            localStorage.setItem(
+                "registeredEvents",
+                JSON.stringify(updatedEvents)
+            );
+        }
+
         setIsRegistered(true);
     };
 
@@ -120,8 +148,8 @@ const EventDetails = () => {
                         onClick={handleRegister}
                         disabled={isRegistered}
                         className={`px-8 py-3 rounded-lg text-white font-semibold transition ${isRegistered
-                            ? "bg-gray-400 cursor-not-allowed"
-                            : "bg-gradient-to-r from-purple-600 to-pink-500 hover:opacity-90"
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-gradient-to-r from-purple-600 to-pink-500 hover:opacity-90"
                             }`}
                     >
                         {isRegistered ? "Already Registered" : "Register Event"}

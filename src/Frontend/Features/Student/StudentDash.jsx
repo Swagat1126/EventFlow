@@ -1,8 +1,11 @@
+import { useState } from "react"
 import { Outlet, NavLink, useNavigate } from "react-router-dom"
+import { Menu, X } from "lucide-react"
 
 const StudentDash = () => {
 
     const navigate = useNavigate()
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleLogout = () => {
         localStorage.removeItem("isLoggedIn")
@@ -11,16 +14,31 @@ const StudentDash = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex">
 
-            <div className="flex gap-8">
+            {/* Sidebar */}
+            <div
+                className={`fixed md:static top-0 left-0 h-full w-64 bg-white/90 backdrop-blur-md shadow-lg p-6 flex flex-col justify-between z-50 transform transition-transform duration-300
+                ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+            >
 
-                <div className="w-64 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg p-6 h-fit flex flex-col justify-between">
+                {/* Header */}
+                <div>
+
+                    <div className="flex justify-between items-center mb-6 md:hidden">
+                        <h2 className="font-bold text-lg text-purple-600">
+                            Student Panel
+                        </h2>
+                        <button onClick={() => setIsOpen(false)}>
+                            <X size={22} />
+                        </button>
+                    </div>
 
                     <nav className="flex flex-col gap-4">
 
                         <NavLink
                             to="dashboard"
+                            onClick={() => setIsOpen(false)}
                             className={({ isActive }) =>
                                 `px-4 py-3 rounded-xl transition ${isActive
                                     ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
@@ -33,6 +51,7 @@ const StudentDash = () => {
 
                         <NavLink
                             to="profile"
+                            onClick={() => setIsOpen(false)}
                             className={({ isActive }) =>
                                 `px-4 py-3 rounded-xl transition ${isActive
                                     ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
@@ -45,6 +64,7 @@ const StudentDash = () => {
 
                         <NavLink
                             to="history"
+                            onClick={() => setIsOpen(false)}
                             className={({ isActive }) =>
                                 `px-4 py-3 rounded-xl transition ${isActive
                                     ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
@@ -57,6 +77,7 @@ const StudentDash = () => {
 
                         <NavLink
                             to="saved"
+                            onClick={() => setIsOpen(false)}
                             className={({ isActive }) =>
                                 `px-4 py-3 rounded-xl transition ${isActive
                                     ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
@@ -69,6 +90,7 @@ const StudentDash = () => {
 
                         <NavLink
                             to="calendar"
+                            onClick={() => setIsOpen(false)}
                             className={({ isActive }) =>
                                 `px-4 py-3 rounded-xl transition ${isActive
                                     ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
@@ -81,18 +103,38 @@ const StudentDash = () => {
 
                     </nav>
 
-                    <button
-                        onClick={handleLogout}
-                        className="mt-8 px-4 py-3 rounded-xl bg-red-100 hover:bg-red-200 transition text-red-600 font-medium"
-                    >
-                        Logout
-                    </button>
-
                 </div>
 
-                <div className="flex-1">
-                    <Outlet />
-                </div>
+                {/* Logout */}
+                <button
+                    onClick={handleLogout}
+                    className="mt-8 px-4 py-3 rounded-xl bg-red-100 hover:bg-red-200 transition text-red-600 font-medium"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+            {/* Overlay (Mobile only) */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black/30 md:hidden z-40"
+                    onClick={() => setIsOpen(false)}
+                />
+            )}
+
+            {/* Main Content */}
+            <div className="flex-1 p-6">
+
+                {/* Mobile Menu Button */}
+                <button
+                    className="mb-6 md:hidden"
+                    onClick={() => setIsOpen(true)}
+                >
+                    <Menu size={26} />
+                </button>
+
+                <Outlet />
 
             </div>
 

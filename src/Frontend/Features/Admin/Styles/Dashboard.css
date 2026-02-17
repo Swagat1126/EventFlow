@@ -1,0 +1,142 @@
+/* ================= FULL BACKGROUND ================= */
+.dashboard-bg {
+  min-height: 100vh;
+  width: 100%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+/* Overlay for readability */
+.dashboard-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(40, 0, 70, 0.85),
+    rgba(120, 0, 150, 0.85)
+  );
+  z-index: 0;
+}
+
+/* ================= CONTAINER ================= */
+.dashboard-container {
+  margin-left: 0;               /* ❌ remove sidebar space */
+  padding-top: 120px;           /* ✅ space for navbar */
+  padding-bottom: 50px;
+
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-content {
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 40px;
+}
+
+/* ================= HERO SECTION ================= */
+.dashboard-hero {
+  height: 320px;
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* hero no longer needs background image */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+}
+
+.dashboard-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(106, 17, 203, 0.75),
+    rgba(255, 47, 146, 0.75)
+  );
+}
+
+/* ================= HERO CONTENT ================= */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+/* ================= STATS SECTION ================= */
+.stats-row {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 60px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 250px;
+  padding: 35px;
+  border-radius: 25px;
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  color: white;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ================= ACTION CARDS ================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.dashboard-card {
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  color: white;
+
+  transition: 0.3s ease;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-10px);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 47, 146, 0.5),
+    rgba(106, 17, 203, 0.6)
+  );
+}

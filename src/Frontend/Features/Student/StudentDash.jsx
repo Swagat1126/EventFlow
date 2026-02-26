@@ -16,13 +16,12 @@ const StudentDash = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex">
 
-            {/* Sidebar */}
             <div
                 className={`fixed md:static top-0 left-0 h-full w-64 bg-white/90 backdrop-blur-md shadow-lg p-6 flex flex-col justify-between z-50 transform transition-transform duration-300
                 ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
             >
 
-                {/* Header */}
+
                 <div>
 
                     <div className="flex justify-between items-center mb-6 md:hidden">
@@ -105,7 +104,7 @@ const StudentDash = () => {
 
                 </div>
 
-                {/* Logout */}
+
                 <button
                     onClick={handleLogout}
                     className="mt-8 px-4 py-3 rounded-xl bg-red-100 hover:bg-red-200 transition text-red-600 font-medium"
@@ -115,7 +114,7 @@ const StudentDash = () => {
 
             </div>
 
-            {/* Overlay (Mobile only) */}
+
             {isOpen && (
                 <div
                     className="fixed inset-0 bg-black/30 md:hidden z-40"
@@ -123,10 +122,9 @@ const StudentDash = () => {
                 />
             )}
 
-            {/* Main Content */}
+
             <div className="flex-1 p-6">
 
-                {/* Mobile Menu Button */}
                 <button
                     className="mb-6 md:hidden"
                     onClick={() => setIsOpen(true)}

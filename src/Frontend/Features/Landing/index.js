@@ -1,12 +1,12 @@
 // Main landing page export
-export { default as LandingPage } from './components/LandingPage';
+export { default as LandingPage } from './Components/Landingpage';
 
-// Individual component exports (if needed separately)
-export { default as Navbar } from './components/Navbar';
-export { default as Hero } from './components/Hero';
-export { default as EventCarousel } from './components/EventCarousel';
-export { default as EventPreview } from './components/EventPreview';
-export { default as HowItWorks } from './components/HowItWorks';
-export { default as AboutEventFlow } from './components/AboutEventFlow';
-export { default as ContactSection } from './components/ContactSection';
-export { default as Footer } from './components/Footer';
+// Individual component exports
+export { default as Navbar } from './Components/Navbar';
+export { default as Hero } from './Components/Hero';
+export { default as EventCarousel } from './Components/EventCarousel';
+export { default as EventPreview } from './Components/EventPreview';
+export { default as HowItWorks } from './Components/HowItWorks';
+export { default as AboutEventFlow } from './Components/AboutEventFlow';
+export { default as ContactSection } from './Components/ContactSection';
+export { default as Footer } from './Components/Footer';

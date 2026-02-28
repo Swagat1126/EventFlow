@@ -1,105 +1,97 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const dummyEvents = [
-    {
-        id: 1,
-        title: "Tech Fest 2024",
-        date: "2024-03-20",
-        location: "Main Auditorium",
-        category: "Tech",
-        description:
-            "Join us for an exciting tech fest filled with innovation, coding competitions, and guest speakers from top companies.",
-        image: "https://source.unsplash.com/800x500/?technology,event"
-    },
-    {
-        id: 2,
-        title: "Music Night",
-        date: "2024-03-25",
-        location: "Open Ground",
-        category: "Music",
-        description:
-            "An energetic night of live performances, bands, and DJ sessions. Don't miss the vibe!",
-        image: "https://source.unsplash.com/800x500/?concert"
-    },
-    {
-        id: 3,
-        title: "Sports Meet",
-        date: "2024-04-05",
-        location: "College Ground",
-        category: "Sports",
-        description:
-            "Participate in various sports events and show your competitive spirit.",
-        image: "https://source.unsplash.com/800x500/?sports"
-    }
-];
-
 const EventDetails = () => {
+
     const { id } = useParams();
     const navigate = useNavigate();
-    const [isRegistered, setIsRegistered] = useState(false);
 
-    const event = dummyEvents.find(
-        (item) => item.id === parseInt(id)
-    );
+    const [event, setEvent] = useState(null);
+    const [isRegistered, setIsRegistered] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [qrCode, setQrCode] = useState(null);
 
     useEffect(() => {
-        const storedEvents =
-            JSON.parse(localStorage.getItem("registeredEvents")) || [];
 
-        const alreadyRegistered = storedEvents.find(
-            (e) => e.id === parseInt(id)
-        );
+        const fetchEvent = async () => {
+            try {
+                const response = await fetch(`/api/events/${id}`);
+                const data = await response.json();
+                setEvent(data);
+            } catch (error) {
+                console.error("Failed to fetch event", error);
+            }
+        };
 
-        if (alreadyRegistered) {
-            setIsRegistered(true);
-        }
+        const checkRegistration = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                const response = await fetch(`/api/registrations/check/${id}`, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.registered) {
+                        setIsRegistered(true);
+                        setQrCode(data.qr_code);
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to check registration", error);
+            }
+        };
+
+        fetchEvent();
+        checkRegistration();
+        setLoading(false);
+
     }, [id]);
 
-    const handleRegister = () => {
-        const storedEvents =
-            JSON.parse(localStorage.getItem("registeredEvents")) || [];
+    const handleRegister = async () => {
 
-        const alreadyRegistered = storedEvents.find(
-            (e) => e.id === event.id
-        );
+        try {
+            const token = localStorage.getItem("token");
 
-        if (!alreadyRegistered) {
-            const updatedEvents = [...storedEvents, event];
-            localStorage.setItem(
-                "registeredEvents",
-                JSON.stringify(updatedEvents)
-            );
+            const response = await fetch("/api/registrations", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ eventId: id })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setIsRegistered(true);
+                setQrCode(data.qr_code);
+            }
+
+        } catch (error) {
+            console.error("Registration failed", error);
         }
-
-        setIsRegistered(true);
     };
+
+    if (loading) {
+        return <div className="p-6">Loading...</div>;
+    }
 
     if (!event) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl">
-
-                <img
-                    src="https://source.unsplash.com/400x300/?empty,search"
-                    alt="Not Found"
-                    className="w-72 mb-6 opacity-80"
-                />
-
                 <h2 className="text-2xl font-bold text-purple-600 mb-2">
                     Event Not Found
                 </h2>
-
-                <p className="text-gray-600 mb-6">
-                    The event you are looking for does not exist or may have been removed.
-                </p>
-
                 <button
                     onClick={() => navigate("/student/dashboard")}
-                    className="px-6 py-2 rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-500 hover:opacity-90 transition"
+                    className="px-6 py-2 rounded-lg text-white bg-gradient-to-r from-purple-600 to-pink-500"
                 >
-                    Go Back to Dashboard
+                    Go Back
                 </button>
-
             </div>
         );
     }
@@ -109,7 +101,7 @@ const EventDetails = () => {
 
             <button
                 onClick={() => navigate(-1)}
-                className="mb-6 px-4 py-2 rounded-lg bg-purple-200 hover:bg-purple-300 transition"
+                className="mb-6 px-4 py-2 rounded-lg bg-purple-200 hover:bg-purple-300"
             >
                 ← Back
             </button>
@@ -117,7 +109,7 @@ const EventDetails = () => {
             <div className="bg-white/70 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden">
 
                 <img
-                    src={event.image}
+                    src={event.image_url}
                     alt={event.title}
                     className="w-full h-72 object-cover"
                 />
@@ -129,8 +121,8 @@ const EventDetails = () => {
                     </h1>
 
                     <div className="flex flex-wrap gap-6 text-gray-700 mb-6">
-                        <p>📅 {new Date(event.date).toDateString()}</p>
-                        <p>📍 {event.location}</p>
+                        <p>📅 {new Date(event.event_date).toDateString()}</p>
+                        <p>📍 {event.venue}</p>
                         <p>🏷 {event.category}</p>
                     </div>
 
@@ -154,6 +146,19 @@ const EventDetails = () => {
                     >
                         {isRegistered ? "Already Registered" : "Register Event"}
                     </button>
+
+                    {qrCode && (
+                        <div className="mt-6 text-center">
+                            <h3 className="mb-2 font-semibold text-purple-600">
+                                Your QR Code
+                            </h3>
+                            <img
+                                src={qrCode}
+                                alt="QR Code"
+                                className="w-40 mx-auto"
+                            />
+                        </div>
+                    )}
 
                 </div>
 

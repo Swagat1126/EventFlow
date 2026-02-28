@@ -1,77 +1,9 @@
-import { useState } from "react";
-import EventCard from "../components/EventCard"
-
-
-
-const dummyEvents = [
-    {
-        id: 1,
-        title: "Tech Fest 2024",
-        date: "2024-03-20",
-        location: "Main Auditorium",
-        category: "Tech",
-        image: "https://source.unsplash.com/400x300/?technology,event"
-    },
-    {
-        id: 2,
-        title: "Music Night",
-        date: "2024-03-25",
-        location: "Open Ground",
-        category: "Music",
-        image: "https://source.unsplash.com/400x300/?concert"
-    },
-    {
-        id: 3,
-        title: "Sports Meet",
-        date: "2024-04-05",
-        location: "College Ground",
-        category: "Sports",
-        image: "https://source.unsplash.com/400x300/?sports"
-    },
-    {
-        id: 4,
-        title: "Startup Seminar",
-        date: "2024-04-10",
-        location: "Seminar Hall",
-        category: "Tech",
-        image: "https://source.unsplash.com/400x300/?startup"
-    },
-    {
-        id: 5,
-        title: "Photography Workshop",
-        date: "2024-04-15",
-        location: "Media Room",
-        category: "Art",
-        image: "https://source.unsplash.com/400x300/?photography"
-    },
-    {
-        id: 6,
-        title: "Dance Competition",
-        date: "2024-04-18",
-        location: "Open Stage",
-        category: "Music",
-        image: "https://source.unsplash.com/400x300/?dance"
-    },
-    {
-        id: 7,
-        title: "AI Workshop",
-        date: "2024-04-22",
-        location: "Lab Block B",
-        category: "Tech",
-        image: "https://source.unsplash.com/400x300/?artificial-intelligence"
-    },
-    {
-        id: 8,
-        title: "Drama Night",
-        date: "2024-04-25",
-        location: "Main Stage",
-        category: "Art",
-        image: "https://source.unsplash.com/400x300/?theatre"
-    }
-];
+import { useState, useEffect } from "react";
+import EventCard from "../components/EventCard";
 
 const EventListing = () => {
 
+    const [events, setEvents] = useState([]);
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("All");
     const [sortBy, setSortBy] = useState("Newest");
@@ -79,7 +11,21 @@ const EventListing = () => {
 
     const eventsPerPage = 6;
 
-    let filteredEvents = dummyEvents
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch("/api/events");
+                const data = await response.json();
+                setEvents(data);
+            } catch (error) {
+                console.error("Failed to fetch events", error);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
+    let filteredEvents = events
         .filter((event) =>
             event.title.toLowerCase().includes(search.toLowerCase())
         )
@@ -88,16 +34,19 @@ const EventListing = () => {
         );
 
     if (sortBy === "Newest") {
-        filteredEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+        filteredEvents.sort(
+            (a, b) => new Date(b.event_date) - new Date(a.event_date)
+        );
     }
 
     if (sortBy === "Oldest") {
-        filteredEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+        filteredEvents.sort(
+            (a, b) => new Date(a.event_date) - new Date(b.event_date)
+        );
     }
 
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-
     const currentEvents = filteredEvents.slice(
         indexOfFirstEvent,
         indexOfLastEvent
@@ -145,10 +94,9 @@ const EventListing = () => {
                         className="border border-purple-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     >
                         <option value="All">All Categories</option>
-                        <option value="Tech">Tech</option>
-                        <option value="Music">Music</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Cultural">Cultural</option>
                         <option value="Sports">Sports</option>
-                        <option value="Art">Art</option>
                     </select>
 
                     <select
@@ -191,8 +139,8 @@ const EventListing = () => {
                             key={index}
                             onClick={() => setCurrentPage(index + 1)}
                             className={`px-4 py-2 rounded-lg ${currentPage === index + 1
-                                ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
-                                : "bg-purple-200"
+                                    ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
+                                    : "bg-purple-200"
                                 }`}
                         >
                             {index + 1}

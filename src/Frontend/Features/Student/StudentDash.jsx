@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Outlet, NavLink, useNavigate } from "react-router-dom"
 import { Menu, X } from "lucide-react"
 
@@ -7,9 +7,18 @@ const StudentDash = () => {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
 
+    const user = JSON.parse(localStorage.getItem("user"))
+
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (!token) {
+            navigate("/")
+        }
+    }, [navigate])
+
     const handleLogout = () => {
-        localStorage.removeItem("isLoggedIn")
-        localStorage.removeItem("loggedInUser")
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
         navigate("/")
     }
 
@@ -21,7 +30,6 @@ const StudentDash = () => {
                 ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
             >
 
-
                 <div>
 
                     <div className="flex justify-between items-center mb-6 md:hidden">
@@ -32,6 +40,10 @@ const StudentDash = () => {
                             <X size={22} />
                         </button>
                     </div>
+
+                    <p className="text-sm text-gray-500 mb-6">
+                        Welcome, {user?.name || "Student"}
+                    </p>
 
                     <nav className="flex flex-col gap-4">
 
@@ -58,7 +70,7 @@ const StudentDash = () => {
                                 }`
                             }
                         >
-                            Profile Information
+                            Profile
                         </NavLink>
 
                         <NavLink
@@ -71,39 +83,12 @@ const StudentDash = () => {
                                 }`
                             }
                         >
-                            Event History
-                        </NavLink>
-
-                        <NavLink
-                            to="saved"
-                            onClick={() => setIsOpen(false)}
-                            className={({ isActive }) =>
-                                `px-4 py-3 rounded-xl transition ${isActive
-                                    ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
-                                    : "bg-purple-100 hover:bg-purple-200"
-                                }`
-                            }
-                        >
-                            Saved Events
-                        </NavLink>
-
-                        <NavLink
-                            to="calendar"
-                            onClick={() => setIsOpen(false)}
-                            className={({ isActive }) =>
-                                `px-4 py-3 rounded-xl transition ${isActive
-                                    ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white"
-                                    : "bg-purple-100 hover:bg-purple-200"
-                                }`
-                            }
-                        >
-                            Event Calendar
+                            My Events
                         </NavLink>
 
                     </nav>
 
                 </div>
-
 
                 <button
                     onClick={handleLogout}
@@ -114,14 +99,12 @@ const StudentDash = () => {
 
             </div>
 
-
             {isOpen && (
                 <div
                     className="fixed inset-0 bg-black/30 md:hidden z-40"
                     onClick={() => setIsOpen(false)}
                 />
             )}
-
 
             <div className="flex-1 p-6">
 

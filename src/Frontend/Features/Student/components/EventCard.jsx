@@ -1,61 +1,18 @@
 import { useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
 
 const EventCard = ({ event }) => {
 
     const navigate = useNavigate()
-    const [isSaved, setIsSaved] = useState(false)
-
-    useEffect(() => {
-        const saved = JSON.parse(localStorage.getItem("savedEvents")) || []
-
-        const exists = saved.some(
-            item => String(item.id) === String(event.id)
-        )
-
-        setIsSaved(exists)
-    }, [event.id])
-
-    const handleSave = (e) => {
-        e.stopPropagation()
-        e.preventDefault()
-
-        let saved = JSON.parse(localStorage.getItem("savedEvents")) || []
-
-        const exists = saved.some(
-            item => String(item.id) === String(event.id)
-        )
-
-        if (exists) {
-            saved = saved.filter(
-                item => String(item.id) !== String(event.id)
-            )
-            setIsSaved(false)
-        } else {
-            saved.push(event)
-            setIsSaved(true)
-        }
-
-        localStorage.setItem("savedEvents", JSON.stringify(saved))
-    }
 
     return (
         <div
-            className="bg-white/70 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden relative"
+            className="bg-white/70 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden"
             onClick={() => navigate(`/student/event/${event.id}`)}
         >
 
-            {/* Heart Button */}
-            <button
-                onClick={handleSave}
-                className="absolute top-3 right-3 text-xl z-20 bg-white rounded-full p-1 shadow-md"
-            >
-                {isSaved ? "❤️" : "🤍"}
-            </button>
-
             <div className="h-44 overflow-hidden">
                 <img
-                    src={event.image}
+                    src={event.image_url}
                     alt={event.title}
                     className="w-full h-full object-cover hover:scale-105 transition duration-500"
                 />
@@ -68,11 +25,11 @@ const EventCard = ({ event }) => {
                 </h3>
 
                 <p className="text-sm text-gray-600 mb-1">
-                    📅 {new Date(event.date).toDateString()}
+                    📅 {new Date(event.event_date).toDateString()}
                 </p>
 
                 <p className="text-sm text-gray-600">
-                    📍 {event.location}
+                    📍 {event.venue}
                 </p>
 
             </div>

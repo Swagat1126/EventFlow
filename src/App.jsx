@@ -3,9 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 
 import { Landingpage } from "./Frontend/Features/Landing";
-
-
 import { Login, Registration, StudentDash, EventListing, EventDetails, MyEvents, Profile } from "./Frontend/Features/Student";
+import { AdminLogin, Dashboard, CreateEvent, ManageEvents, Attendance, QRScanner } from "./Frontend/Features/Admin"
 
 function App() {
   return (
@@ -15,6 +14,13 @@ function App() {
 
       <Route path="/student/login" element={<Login />} />
       <Route path="/student/register" element={<Registration />} />
+
+      {/* <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/dashboard" element={<Dashboard />} />
+      <Route path="/admin" element={<Dashboard />} />
+      <Route path="/admin/create-event" element={<CreateEvent />} />
+      <Route path="/admin/events" element={<ManageEvents />} />
+      <Route path="/admin/attendance" element={<QRScanner />} /> */}
 
 
       <Route path="/student" element={<StudentDash />}>

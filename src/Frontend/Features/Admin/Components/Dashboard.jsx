@@ -9,8 +9,8 @@ const Dashboard = () => {
   return (
     <div
       className="dashboard-bg"
-      style={{ backgroundImage: `url(${banner})` }}
-    >
+      style={{ backgroundImage: `url(${banner})` }}>
+
       <div className="dashboard-container">
         <div className="dashboard-content">
 
@@ -44,7 +44,7 @@ const Dashboard = () => {
           <div className="dashboard-grid">
             <div
               className="dashboard-card"
-              onClick={() => navigate("/create-event")}
+              onClick={() => navigate("/admin/create-event")}
             >
               <h3>Create Event</h3>
               <p>Create and publish new events</p>
@@ -52,7 +52,7 @@ const Dashboard = () => {
 
             <div
               className="dashboard-card"
-              onClick={() => navigate("/events")}
+              onClick={() => navigate("/admin/events")}
             >
               <h3>Manage Events</h3>
               <p>Edit, delete and track events</p>
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
             <div
               className="dashboard-card"
-              onClick={() => navigate("/attendance")}
+              onClick={() => navigate("/admin/attendance")}
             >
               <h3>QR Scanner</h3>
               <p>Scan attendee QR codes</p>

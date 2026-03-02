@@ -1,74 +1,79 @@
-import React, { useState } from "react"
-import { Eye, EyeOff } from "lucide-react"
-import { motion } from "framer-motion"
-import { useNavigate } from "react-router-dom"
-import Img1 from "../../../../assets/Img1.jpg"
+import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import Img1 from "../../../../assets/Img1.jpg";
 
 const Login = () => {
 
-    const navigate = useNavigate()
-    const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-    })
+    });
 
-    const [errors, setErrors] = useState({})
-    const [loading, setLoading] = useState(false)
-    const [serverError, setServerError] = useState("")
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [serverError, setServerError] = useState("");
 
     const handleChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,
-        })
-    }
+        });
+    };
 
     const validate = () => {
-        let newErrors = {}
+        let newErrors = {};
 
         if (!formData.email)
-            newErrors.email = "Email is required"
+            newErrors.email = "Email is required";
         else if (!/\S+@\S+\.\S+/.test(formData.email))
-            newErrors.email = "Invalid email format"
+            newErrors.email = "Invalid email format";
 
         if (!formData.password)
-            newErrors.password = "Password is required"
+            newErrors.password = "Password is required";
 
-        return newErrors
-    }
+        return newErrors;
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        const validationErrors = validate()
+        e.preventDefault();
 
+        const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors)
-            return
+            setErrors(validationErrors);
+            return;
         }
 
-        setErrors({})
-        setServerError("")
+        setErrors({});
+        setServerError("");
+        setLoading(true);
 
-        // Temporary Hardcoded Login
-        if (
-            formData.email === "student@gmail.com" &&
-            formData.password === "1234"
-        ) {
-            localStorage.setItem("token", "temp-token")
-            localStorage.setItem("user", JSON.stringify({
-                name: "Student User",
-                email: "student@gmail.com",
-                role: "student"
-            }))
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
-            navigate("/student/dashboard")
+        const existingUser = users.find(
+            user =>
+                user.email === formData.email &&
+                user.password === formData.password
+        );
+
+        if (existingUser) {
+            localStorage.setItem("token", "temp-token");
+            localStorage.setItem("user", JSON.stringify(existingUser));
+
+            setTimeout(() => {
+                navigate("/student");
+            }, 600);
         } else {
-            setServerError("Invalid email or password")
+            setServerError("Invalid email or password");
         }
-    }
+
+        setLoading(false);
+    };
 
     return (
         <div
@@ -78,17 +83,20 @@ const Login = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-purple-700/80 to-pink-600/70"></div>
 
             <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
+
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     className="w-full max-w-4xl flex rounded-2xl overflow-hidden shadow-2xl"
                 >
+
+
                     <motion.div
                         initial={{ opacity: 0, x: -40 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="hidden md:flex w-1/2 p-8 text-white flex-col justify-between ml-6"
+                        className="hidden md:flex w-1/2 p-8 text-white flex-col justify-between"
                     >
                         <div>
                             <h2 className="text-3xl font-bold mb-4">
@@ -103,7 +111,7 @@ const Login = () => {
                             Don’t have an account?{" "}
                             <button
                                 type="button"
-                                onClick={() => navigate("/registration")}
+                                onClick={() => navigate("/student/register")}
                                 className="text-pink-300 underline hover:text-pink-400 transition"
                             >
                                 Register Here
@@ -111,9 +119,11 @@ const Login = () => {
                         </p>
                     </motion.div>
 
+
                     <div className="w-full md:w-1/2 p-6 bg-white/20 backdrop-blur-sm">
+
                         <h3 className="text-xl font-semibold text-white mb-4">
-                            Login
+                            Student Login
                         </h3>
 
                         {serverError && (
@@ -134,9 +144,7 @@ const Login = () => {
                                     className="w-full mt-1 p-2.5 rounded-xl bg-white/30 border border-white/40 text-white focus:ring-2 focus:ring-pink-400 outline-none transition"
                                 />
                                 {errors.email && (
-                                    <p className="text-red-300 text-xs mt-1">
-                                        {errors.email}
-                                    </p>
+                                    <p className="text-red-300 text-xs mt-1">{errors.email}</p>
                                 )}
                             </div>
 
@@ -158,9 +166,7 @@ const Login = () => {
                                     </span>
                                 </div>
                                 {errors.password && (
-                                    <p className="text-red-300 text-xs mt-1">
-                                        {errors.password}
-                                    </p>
+                                    <p className="text-red-300 text-xs mt-1">{errors.password}</p>
                                 )}
                             </div>
 
@@ -175,11 +181,12 @@ const Login = () => {
                             </motion.button>
 
                         </form>
+
                     </div>
                 </motion.div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

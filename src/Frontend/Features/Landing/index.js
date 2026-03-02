@@ -1,5 +1,5 @@
 // Main landing page export
-export { default as LandingPage } from './Components/Landingpage';
+export { default as Landingpage } from './Components/Landingpage';
 
 // Individual component exports
 export { default as Navbar } from './Components/Navbar';

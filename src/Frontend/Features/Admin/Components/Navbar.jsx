@@ -17,12 +17,11 @@ const Navbar = () => {
       <h2 className="logo">EventFlow</h2>
 
       <div className="nav-links">
-        <Link to="/">Dashboard</Link>
-        <Link to="/create-event">Create Event</Link>
-        <Link to="/events">Manage Events</Link>
-        <Link to="/attendance">QR Scanner</Link>
-        <Link to="/report">Attendance Report</Link>
-
+        <Link to="/admin/dashboard">Dashboard</Link>
+        <Link to="/admin/create-event">Create Event</Link>
+        <Link to="/admin/events">Manage Events</Link>
+        <Link to="/admin/attendance">QR Scanner</Link>
+        <Link to="/admin/report">Attendance Report</Link>
         {/* LOGOUT */}
         <button className="logout-btn" onClick={handleLogout}>
           Logout

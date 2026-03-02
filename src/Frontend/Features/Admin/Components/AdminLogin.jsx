@@ -25,14 +25,14 @@ const AdminLogin = () => {
       // ✅ SET LOGIN FLAG FIRST
       sessionStorage.setItem("isAdminLoggedIn", "true");
       // ✅ THEN NAVIGATE
-      navigate("/", { replace: true });
+      navigate("/admin/dashboard", { replace: true });
     } else {
       alert("Invalid username or password");
     }
   };
 
   return (
-    <div className="login-bg" style={{ backgroundImage: `url(${loginBg})` }}>
+    <div className="login-bg" style={{ backgroundImage: `url(${loginBg})` }} >
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Admin Login</h2>
 

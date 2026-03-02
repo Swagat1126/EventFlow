@@ -17,7 +17,7 @@ const QRScanner = () => {
     );
 
     scanner.render((decodedText) => {
-      scanner.clear().catch(() => {});
+      scanner.clear().catch(() => { });
 
       let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
       let studentName = "";
@@ -55,7 +55,7 @@ const QRScanner = () => {
     });
 
     return () => {
-      scanner.clear().catch(() => {});
+      scanner.clear().catch(() => { });
     };
   }, []);
 

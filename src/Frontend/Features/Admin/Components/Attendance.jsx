@@ -1,4 +1,4 @@
-import QRScanner from "../components/QRScanner";
+import QRScanner from "../Components/QRScanner";
 
 const Attendance = () => {
   return (

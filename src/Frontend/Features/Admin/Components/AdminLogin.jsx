@@ -23,7 +23,7 @@ const AdminLogin = () => {
       credentials.password === "admin123"
     ) {
       sessionStorage.setItem("isAdminLoggedIn", "true");
-      navigate("/", { replace: true });
+      navigate("/admin", { replace: true });
     } else {
       alert("Invalid email or password");
     }
@@ -59,5 +59,6 @@ const AdminLogin = () => {
     </div>
   );
 };
+
 
 export default AdminLogin;

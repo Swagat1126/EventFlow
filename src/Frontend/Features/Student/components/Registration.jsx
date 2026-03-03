@@ -81,7 +81,11 @@ const Registration = () => {
         setSuccess("Registration successful!")
 
         setTimeout(() => {
-            navigate("/student/login")
+            if (formData.role === "admin") {
+                 navigate("/admin/login");
+            } else {
+                navigate("/student/login");
+           }
         }, 1200)
     }
 

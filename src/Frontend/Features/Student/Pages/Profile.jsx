@@ -67,7 +67,7 @@ const Profile = () => {
                 Profile Information
             </h1>
 
-            {/* Profile Image Section */}
+
             <div className="flex items-center gap-6 mb-8">
 
                 <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-purple-200 flex items-center justify-center bg-gray-100">

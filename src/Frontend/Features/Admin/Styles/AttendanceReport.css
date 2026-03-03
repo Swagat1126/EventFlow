@@ -4,9 +4,9 @@
   min-height: 100vh;
 
   /* Background Image */
-  background: 
+  background:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(106, 17, 203, 0.6)),
-    url("../assets/Img1.jpg.jpeg") 
+    /*url("../assets/Img1.jpg.jpeg") 
     no-repeat center center/cover;
 
   display: flex;
@@ -92,9 +92,9 @@
     opacity: 0;
     transform: translateY(15px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/AdminLogin.css";
-import loginBg from "../assets/event-banner.avif";
+//import loginBg from "../assets/event-banner.avif";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -29,8 +29,54 @@ const AdminLogin = () => {
     }
   };
 
+  //   return (
+  // <<<<<<< HEAD
+  //     <div className="login-bg" style={{ backgroundImage: `url(${loginBg})` }}>
+  //       <form className="login-form" onSubmit={handleSubmit}>
+  //         <h2>Admin Login</h2>
+
+  //         <input
+  //           type="email"
+  //           name="email"
+  //           placeholder="Email"
+  //           value={credentials.email}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  // =======
+  //     /* <div className="login-bg" style={{ backgroundImage: `url(${loginBg})` }} > */
+  //     <form className="login-form" onSubmit={handleSubmit}>
+  //       <h2>Admin Login</h2>
+
+  //       <input
+  //         type="text"
+  //         name="username"
+  //         placeholder="Username"
+  //         value={credentials.username}
+  //         onChange={handleChange}
+  //         required
+  //       />
+  // >>>>>>> c4d969b (Integrated global chatbot and fixed admin JSX and asset issues)
+
+  //       <input
+  //         type="password"
+  //         name="password"
+  //         placeholder="Password"
+  //         value={credentials.password}
+  //         onChange={handleChange}
+  //         required
+  //       />
+
+  //       <button type="submit" className="login-btn">
+  //         Login
+  //       </button>
+  //     </form>
+
+  //   );
+  // };
+
   return (
-    <div className="login-bg" style={{ backgroundImage: `url(${loginBg})` }}>
+    <div className="login-bg">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Admin Login</h2>
 
@@ -58,7 +104,6 @@ const AdminLogin = () => {
       </form>
     </div>
   );
-};
 
 
-export default AdminLogin;
+  export default AdminLogin;  

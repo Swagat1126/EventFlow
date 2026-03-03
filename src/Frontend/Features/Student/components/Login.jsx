@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Img1 from "../../../../assets/Img1.jpg";
+//import Img1 from "../../../../assets/Img1.jpg";
 
 const Login = () => {
 

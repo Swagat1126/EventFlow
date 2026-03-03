@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import "../styles/QRScanner.css";
-import bgImage from "../assets/event-banner.avif"; // background image
+//import bgImage from "../assets/event-banner.avif"; // background image
 
 const QRScanner = () => {
   const [message, setMessage] = useState("");

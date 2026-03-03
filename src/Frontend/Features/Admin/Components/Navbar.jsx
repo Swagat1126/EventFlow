@@ -9,7 +9,7 @@ const Navbar = () => {
     sessionStorage.removeItem("isAdminLoggedIn");
     // localStorage.removeItem("isAdminLoggedIn");
 
-    navigate("/admin-login", { replace: true });
+    navigate("/admin/login", { replace: true });
   };
 
   return (

@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Dashboard.css";
-//import banner from "../assets/Img1.jpg.jpeg";
+import banner from "../../../../assets/img1.jpg.jpeg";
+import Navbar from "./Navbar";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Dashboard = () => {
     <div
       className="dashboard-bg"
       style={{ backgroundImage: `url(${banner})` }}>
-
+      <Navbar />
       <div className="dashboard-container">
         <div className="dashboard-content">
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/CreateEvent.css";
-//import defaultImage from "../assets/event-banner.avif"; // default background
+import defaultImage from "../../../../assets/event-banner.avif"; // default background
 
 const CreateEvent = () => {
   const [event, setEvent] = useState({

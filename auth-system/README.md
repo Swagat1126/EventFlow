@@ -48,35 +48,18 @@ POST /signup
 
 Request Body (JSON):
 
-{
-  "name": "Vaishnavi",
-  "email": "vaishu@gmail.com",
-  "password": "123456",
-  "role": "Student"
-}
+
 Login User
 
 POST /login
 
 Request Body (JSON):
 
-{
-  "email": "vaishu@gmail.com",
-  "password": "123456"
-}
+
 
 Response:
 
-{
-  "msg": "Login successful",
-  "token": "JWT_TOKEN_HERE",
-  "user": {
-    "id": "1",
-    "name": "Vaishnavi",
-    "email": "vaishu@gmail.com",
-    "role": "Student"
-  }
-}
+
 Get User Profile
 
 GET /profile

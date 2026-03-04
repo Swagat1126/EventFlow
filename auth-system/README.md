@@ -1,24 +1,22 @@
 Authentication and User Management Backend
 
-This module implements a secure authentication and user management system for the EventFlow application. It provides APIs for user registration, authentication, and role-based authorization using industry-standard security practices.
+This module provides secure authentication and role-based user management for the EventFlow application. It is responsible for handling user registration, login, and protected API access using JSON Web Tokens (JWT).
 
-The system ensures confidentiality and integrity of user credentials through password hashing and token-based authentication mechanisms.
-
-Functionalities
+🚀 Features
 
 User registration (Signup)
 
 User authentication (Login)
 
-Role-based access control (Admin, Student, Volunteer)
+Role-based access control (Admin / Student / Volunteer)
 
-Secure password encryption using bcrypt
+Secure password hashing using bcrypt
 
-JWT-based session management
+Token-based authentication using JWT
 
-Middleware-based route protection
+Protected routes with middleware
 
-Technologies Used
+🛠️ Technology Stack
 
 Node.js
 
@@ -30,35 +28,47 @@ JSON Web Token (JWT)
 
 bcrypt
 
-System Configuration
+⚙️ Setup and Installation
 
-Create a .env file with the following parameters:
+Navigate to the auth-system directory:
+
+cd auth-system
+
+Install dependencies:
+
+npm install
+
+Create a .env file and configure environment variables:
 
 DATABASE_URL=your_database_url
 JWT_SECRET=your_secret_key
 PORT=5000
-Execution Steps
-cd auth-system
-npm install
+
+Start the server:
+
 npm start
 
-Server runs at:
+The server will run on:
 
 http://localhost:5000
-API Specification
-Method	Endpoint	Description
-POST	/signup	Register a new user
-POST	/login	Authenticate user
-GET	/profile	Get logged-in user profile
-GET	/users	Admin-only user listing
-Project Structure
+🔑 API Endpoints
+
+POST /signup – Register a new user
+
+POST /login – Authenticate user and generate JWT
+
+GET /profile – Fetch authenticated user profile
+
+GET /users – Admin-only route to fetch all users
+
+📁 Project Structure
 
 config/ – Database configuration
 
-models/ – Data models
+models/ – Database schemas
 
-routes/ – API routes
+routes/ – API route definitions
 
-middleware/ – Authentication middleware
+middleware/ – Authentication and authorization middleware
 
-server.js – Server entry point
+server.js – Application entry point

@@ -2,7 +2,7 @@ Authentication and User Management Backend
 
 This module provides secure authentication and role-based user management for the EventFlow application. It is responsible for handling user registration, login, and protected API access using JSON Web Tokens (JWT).
 
-🚀 Features
+ Features
 
 User registration (Signup)
 
@@ -16,7 +16,7 @@ Token-based authentication using JWT
 
 Protected routes with middleware
 
-🛠️ Technology Stack
+Technology Stack
 
 Node.js
 
@@ -51,7 +51,8 @@ npm start
 The server will run on:
 
 http://localhost:5000
-🔑 API Endpoints
+
+API Endpoints
 
 POST /signup – Register a new user
 
@@ -61,7 +62,7 @@ GET /profile – Fetch authenticated user profile
 
 GET /users – Admin-only route to fetch all users
 
-📁 Project Structure
+ Project Structure
 
 config/ – Database configuration
 

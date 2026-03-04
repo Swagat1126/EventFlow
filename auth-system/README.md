@@ -1,75 +1,100 @@
-Authentication and User Management Backend
+# **Authentication and User Management Backend**
 
-This module provides secure authentication and role-based user management for the EventFlow application. It is responsible for handling user registration, login, and protected API access using JSON Web Tokens (JWT).
+This module provides secure authentication and role-based user management for the **EventFlow** application.  
+It handles user registration, login, and protected API access using **JSON Web Tokens (JWT)**.
 
- Features
+---
 
-User registration (Signup)
+## **Features**
+- User Registration (Signup)
+- User Authentication (Login)
+- Role-Based Access Control (Admin / Student / Volunteer)
+- Secure Password Hashing using bcrypt
+- Token-Based Authentication using JWT
+- Protected Routes using Middleware
 
-User authentication (Login)
+---
 
-Role-based access control (Admin / Student / Volunteer)
+## **Technology Stack**
+- Node.js  
+- Express.js  
+- MongoDB  
+- JSON Web Token (JWT)  
+- bcrypt  
 
-Secure password hashing using bcrypt
+---
 
-Token-based authentication using JWT
+## **Setup and Installation**
 
-Protected routes with middleware
-
-Technology Stack
-
-Node.js
-
-Express.js
-
-MongoDB
-
-JSON Web Token (JWT)
-
-bcrypt
-
-⚙️ Setup and Installation
-
-Navigate to the auth-system directory:
-
+### Navigate to project directory:
+```bash
 cd auth-system
-
 Install dependencies:
-
 npm install
-
-Create a .env file and configure environment variables:
-
+Create a .env file:
 DATABASE_URL=your_database_url
 JWT_SECRET=your_secret_key
 PORT=5000
-
 Start the server:
-
 npm start
 
-The server will run on:
+Server will run at:
 
 http://localhost:5000
-
 API Endpoints
+Register User
 
-POST /signup – Register a new user
+POST /signup
 
-POST /login – Authenticate user and generate JWT
+Request Body (JSON):
 
-GET /profile – Fetch authenticated user profile
+{
+  "name": "Vaishnavi",
+  "email": "vaishu@gmail.com",
+  "password": "123456",
+  "role": "Student"
+}
+Login User
 
-GET /users – Admin-only route to fetch all users
+POST /login
 
- Project Structure
+Request Body (JSON):
 
-config/ – Database configuration
+{
+  "email": "vaishu@gmail.com",
+  "password": "123456"
+}
 
-models/ – Database schemas
+Response:
 
-routes/ – API route definitions
+{
+  "msg": "Login successful",
+  "token": "JWT_TOKEN_HERE",
+  "user": {
+    "id": "1",
+    "name": "Vaishnavi",
+    "email": "vaishu@gmail.com",
+    "role": "Student"
+  }
+}
+Get User Profile
 
-middleware/ – Authentication and authorization middleware
+GET /profile
 
-server.js – Application entry point
+Header:
+
+Authorization: Bearer JWT_TOKEN_HERE
+Get All Users (Admin Only)
+
+GET /users
+
+Header:
+
+Authorization: Bearer JWT_TOKEN_HERE
+Project Structure
+auth-system/
+│── config/        → Database configuration  
+│── models/        → Database schemas  
+│── routes/        → API route definitions  
+│── middleware/    → Authentication and role middleware  
+│── server.js      → Application entry point

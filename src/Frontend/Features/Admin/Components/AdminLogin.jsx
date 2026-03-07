@@ -7,7 +7,7 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -21,17 +21,26 @@ const AdminLogin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      credentials.username === "admin" &&
-      credentials.password === "admin123"
-    ) {
-      // ✅ Set login flag
-      sessionStorage.setItem("isAdminLoggedIn", "true");
+    // Get registered users from localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-      // ✅ Navigate to Admin Dashboard
+    // Find matching admin
+    const adminUser = users.find(
+      (user) =>
+        user.email === credentials.email &&
+        user.password === credentials.password &&
+        user.role === "admin"
+    );
+
+    if (adminUser) {
+      // Set admin login session
+      sessionStorage.setItem("isAdminLoggedIn", "true");
+      sessionStorage.setItem("adminEmail", adminUser.email);
+
+      // Redirect to dashboard
       navigate("/admin", { replace: true });
     } else {
-      alert("Invalid username or password");
+      alert("Invalid admin credentials");
     }
   };
 
@@ -41,10 +50,10 @@ const AdminLogin = () => {
         <h2>Admin Login</h2>
 
         <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={credentials.username}
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={credentials.email}
           onChange={handleChange}
           required
         />

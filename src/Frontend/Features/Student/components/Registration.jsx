@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import Img1 from "../../../../assets/Img1.jpg"
+import Loginf from "../../../../assets/Loginf.jpg"
 
 const Registration = () => {
 
@@ -91,7 +91,7 @@ const Registration = () => {
 
     return (
         <div className="min-h-screen bg-cover bg-center relative"
-            style={{ backgroundImage: `url(${Img1})` }}>
+            style={{ backgroundImage: `url(${Loginf})` }}>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-700/80 to-pink-600/70"></div>
 
             <div className="relative z-10 flex items-center justify-center min-h-screen px-4">

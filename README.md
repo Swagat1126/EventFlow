@@ -1,16 +1,114 @@
-# React + Vite
+# 🎉 EventFlow – College Event Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EventFlow is a full-stack web application designed to simplify the process of managing college events.  
+It allows **students to discover and register for events** while **admins can create, manage, and monitor events** from a dedicated dashboard.
 
-Currently, two official plugins are available:
+The platform provides a centralized system for event management, improving coordination between students and event organizers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+# 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 👨‍🎓 Student Features
+- Student Registration & Login
+- Browse Upcoming Events
+- Register for Events
+- View Registered Events
+- Personal Dashboard
+- Event Details Page
 
-## Expanding the ESLint configuration
+## 👨‍💼 Admin Features
+- Admin Login Panel
+- Create Events
+- Manage Events
+- Delete Events
+- Download Event Registrations
+- QR Code Attendance Scanner
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+# 🛠 Tech Stack
+
+### Frontend
+- React.js
+- React Router
+- Tailwind CSS
+- Framer Motion
+- Vite
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- Firebase Firestore
+
+### Other Tools
+- Git & GitHub
+- QR Code Scanner
+- CSV Export
+
+---
+
+# 📂 Project Structure
+EventFlow
+│
+├── src
+│ ├── Frontend
+│ │ ├── Features
+│ │ │ ├── Landing
+│ │ │ ├── Student
+│ │ │ └── Admin
+│ │ └── Components
+│ │
+│ └── assets
+│
+├── backend
+│ ├── routes
+│ ├── controllers
+│ └── server.js
+│
+└── README.md
+
+
+---
+
+# ⚙️ Installation
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/eventflow.git
+cd eventflow
+npm install
+npm run dev
+
+🧠 Future Improvements
+
+Some features planned for future development:
+
+Email Notifications
+
+Event Reminder System
+
+AI-powered Chatbot
+
+Event Analytics Dashboard
+
+Online Event Payments
+
+Mobile Responsive Optimization
+
+Role-based Authentication
+
+🤝 Contributing
+
+Contributions are welcome!
+
+If you'd like to improve EventFlow:
+
+Fork the repository
+
+Create a new branch
+
+Submit a pull request

@@ -301,13 +301,14 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+
   .event-preview-grid,
   .steps-container,
   .about-features,
   .contact-cards {
     grid-template-columns: 1fr;
   }
-  
+
   .step-arrow {
     display: none;
   }
